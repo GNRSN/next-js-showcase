@@ -1,7 +1,8 @@
-import { cn } from "@/lib/utils";
 import dayjs from "dayjs";
 import isoWeek from "dayjs/plugin/isoWeek";
 import localeData from "dayjs/plugin/localeData";
+
+import { cn } from "@/lib/utils";
 
 dayjs.extend(isoWeek);
 
@@ -39,13 +40,13 @@ export default function CalendarPage() {
   }
 
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20">
+      <main className="row-start-2 flex flex-col items-center gap-8 sm:items-start">
         <div className="text-2xl font-bold">{now.format("MMMM")}</div>
         <div className="grid grid-cols-7">
           {daysInMonth.slice(0, 7).map((d) => {
             return (
-              <div className="text-gray-500 p-4 font-bold">
+              <div className="p-4 font-bold text-gray-500">
                 {d.format("ddd")}
               </div>
             );
