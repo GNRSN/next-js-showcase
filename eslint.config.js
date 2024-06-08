@@ -7,8 +7,16 @@ const tsEslint = require("typescript-eslint");
 
 // Plugins
 const reactRecommended = require("eslint-plugin-react/configs/recommended");
-const hooksPlugin = require("eslint-plugin-react-hooks");
+const compilerPlugin = require("eslint-plugin-react-compiler");
 const nextPlugin = require("@next/eslint-plugin-next");
+
+// Utils
+const { FlatCompat } = require("@eslint/eslintrc");
+const { fixupConfigRules } = require("@eslint/compat");
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+});
 
 module.exports = tsEslint.config(
   {
@@ -29,12 +37,14 @@ module.exports = tsEslint.config(
       },
     },
   },
+  // REVIEW: Possobly compiler plugin replaces the need for this?
+  ...fixupConfigRules(compat.extends("plugin:react-hooks/recommended")),
   {
     plugins: {
-      "react-hooks": hooksPlugin,
+      "react-compiler": compilerPlugin,
     },
     rules: {
-      .../** @type {object}*/ (hooksPlugin.configs.recommended.rules),
+      "react-compiler/react-compiler": "warn",
     },
   },
   {
