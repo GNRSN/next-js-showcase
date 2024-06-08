@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import isoWeek from "dayjs/plugin/isoWeek";
-import localeData from "dayjs/plugin/localeData";
 
 import { cn } from "@/lib/utils";
 
@@ -45,9 +44,10 @@ export default function CalendarPage() {
         <div className="text-2xl font-bold">{now.format("MMMM")}</div>
         <div className="grid grid-cols-7">
           {daysInMonth.slice(0, 7).map((d) => {
+            const weekday = d.format("ddd");
             return (
-              <div className="p-4 font-bold text-gray-500">
-                {d.format("ddd")}
+              <div key={weekday} className="p-4 font-bold text-gray-500">
+                {weekday}
               </div>
             );
           })}
@@ -55,8 +55,10 @@ export default function CalendarPage() {
             const isDateInOtherMonth = d.month() !== now.month();
             const isToday = d.isSame(now, "date");
 
+            const dateLabel = d.format("YYYY-MM-DD");
             return (
               <div
+                key={dateLabel}
                 className={cn(
                   `col-start-${d.isoWeekday()} col-end-${d.isoWeekday() + 1} p-4`,
                   {
@@ -65,7 +67,7 @@ export default function CalendarPage() {
                   },
                 )}
               >
-                {d.format("YYYY-MM-DD")}
+                {dateLabel}
               </div>
             );
           })}
