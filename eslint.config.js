@@ -9,6 +9,7 @@ const tsEslint = require("typescript-eslint");
 const reactRecommended = require("eslint-plugin-react/configs/recommended");
 const compilerPlugin = require("eslint-plugin-react-compiler");
 const nextPlugin = require("@next/eslint-plugin-next");
+const stylistic = require("@stylistic/eslint-plugin");
 
 // Utils
 const { FlatCompat } = require("@eslint/eslintrc");
@@ -57,6 +58,19 @@ module.exports = tsEslint.config(
     rules: {
       ...nextPlugin.configs.recommended.rules,
       ...nextPlugin.configs["core-web-vitals"].rules,
+    },
+  },
+  {
+    rules: {
+      curly: "warn",
+    },
+  },
+  {
+    plugins: {
+      "@stylistic": stylistic,
+    },
+    rules: {
+      "@stylistic/semi": ["warn"],
     },
   },
   {
