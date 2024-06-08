@@ -37,7 +37,8 @@ module.exports = tsEslint.config(
       },
     },
   },
-  // REVIEW: Possobly compiler plugin replaces the need for this?
+  // REVIEW: Possibly compiler plugin replaces the need for this?
+  /** @see https://eslint.org/blog/2024/05/eslint-compatibility-utilities/#using-with-flatcompat */
   ...fixupConfigRules(compat.extends("plugin:react-hooks/recommended")),
   {
     plugins: {
