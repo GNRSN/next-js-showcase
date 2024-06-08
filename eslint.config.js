@@ -33,7 +33,8 @@ module.exports = tsEslint.config(
     },
     settings: {
       react: {
-        version: "detect", // You can add this if you get a warning about the React version when you lint
+        // Only necessary to suppress warning
+        version: "detect",
       },
     },
   },
