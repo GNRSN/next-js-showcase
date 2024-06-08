@@ -41,12 +41,18 @@ export default function CalendarPage() {
   return (
     <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-sans sm:p-20">
       <main className="row-start-2 flex flex-col items-center gap-8 sm:items-start">
-        <div className="text-2xl font-bold">{now.format("MMMM")}</div>
+        <div className="text-2xl font-bold">{now.format("MMMM YYYY")}</div>
         <div className="grid grid-cols-7">
           {daysInMonth.slice(0, 7).map((d) => {
             const weekday = d.format("ddd");
+            const isSameAsCurrentWeekday = d.isoWeekday() === now.isoWeekday();
             return (
-              <div key={weekday} className="p-4 font-bold text-gray-500">
+              <div
+                key={weekday}
+                className={cn("p-4 font-bold text-gray-500", {
+                  "text-gray-800": isSameAsCurrentWeekday,
+                })}
+              >
                 {weekday}
               </div>
             );
@@ -55,19 +61,18 @@ export default function CalendarPage() {
             const isDateInOtherMonth = d.month() !== now.month();
             const isToday = d.isSame(now, "date");
 
-            const dateLabel = d.format("YYYY-MM-DD");
             return (
               <div
-                key={dateLabel}
+                key={d.format("YYYY-MM-DD")}
                 className={cn(
-                  `col-start-${d.isoWeekday()} col-end-${d.isoWeekday() + 1} p-4`,
+                  `col-start-${d.isoWeekday()} col-end-${d.isoWeekday() + 1} min-w-20 p-4 text-left`,
                   {
                     "opacity-50": isDateInOtherMonth,
                     "text-blue-500": isToday,
                   },
                 )}
               >
-                {dateLabel}
+                {d.format("D")}
               </div>
             );
           })}
